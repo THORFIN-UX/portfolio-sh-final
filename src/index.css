@@ -1,0 +1,220 @@
+@import "@fontsource/space-grotesk/400.css";
+@import "@fontsource/space-grotesk/500.css";
+@import "@fontsource/space-grotesk/700.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Premium Dark Theme Design System - Netflix x FinTech Aesthetic */
+
+@layer base {
+  :root {
+    /* Core dark palette */
+    --background: 230 100% 6%;
+    --foreground: 195 100% 95%;
+
+    --card: 230 60% 8%;
+    --card-foreground: 195 100% 95%;
+
+    --popover: 230 60% 8%;
+    --popover-foreground: 195 100% 95%;
+
+    /* Cyan accent brand */
+    --primary: 193 100% 43%;
+    --primary-foreground: 230 100% 6%;
+
+    /* Deep blue secondary */
+    --secondary: 230 100% 18%;
+    --secondary-foreground: 195 100% 90%;
+
+    --muted: 230 40% 15%;
+    --muted-foreground: 195 30% 60%;
+
+    --accent: 193 90% 75%;
+    --accent-foreground: 230 100% 6%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Glassmorphism border */
+    --border: 193 100% 76%;
+    --input: 230 40% 20%;
+    --ring: 193 100% 43%;
+
+    --radius: 1rem;
+
+    /* Custom tokens */
+    --glow-cyan: 193 100% 43%;
+    --glow-light: 193 100% 76%;
+    --deep-navy: 230 100% 18%;
+    --frost: 193 100% 76%;
+
+    /* Gradients */
+    --gradient-radial: radial-gradient(ellipse at 30% 20%, hsl(230 100% 18%) 0%, hsl(0 0% 0%) 70%);
+    --gradient-glow: radial-gradient(circle, hsl(193 100% 43% / 0.6) 0%, transparent 70%);
+    --gradient-card: linear-gradient(135deg, hsl(230 60% 12% / 0.8) 0%, hsl(230 60% 6% / 0.6) 100%);
+
+    /* Shadows */
+    --shadow-glow: 0 0 60px hsl(193 100% 43% / 0.4);
+    --shadow-card: 0 8px 32px hsl(0 0% 0% / 0.4);
+    --shadow-neon: 0 0 20px hsl(193 100% 76% / 0.8), 0 0 40px hsl(193 100% 43% / 0.4);
+
+    --sidebar-background: 230 60% 8%;
+    --sidebar-foreground: 195 100% 95%;
+    --sidebar-primary: 193 100% 43%;
+    --sidebar-primary-foreground: 230 100% 6%;
+    --sidebar-accent: 230 40% 15%;
+    --sidebar-accent-foreground: 195 100% 95%;
+    --sidebar-border: 193 100% 76%;
+    --sidebar-ring: 193 100% 43%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border/20;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: "Space Grotesk", system-ui, sans-serif;
+    background: var(--gradient-radial);
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  /* Glassmorphism card */
+  .glass-card {
+    @apply relative overflow-hidden rounded-2xl;
+    background: linear-gradient(135deg, hsl(var(--card) / 0.6) 0%, hsl(var(--card) / 0.3) 100%);
+    backdrop-filter: blur(20px);
+    border: 1px solid hsl(var(--frost) / 0.3);
+    box-shadow: var(--shadow-card);
+  }
+
+  .glass-card-hover {
+    @apply glass-card transition-all duration-500;
+  }
+
+  .glass-card-hover:hover {
+    border-color: hsl(var(--frost) / 0.6);
+    box-shadow: var(--shadow-card), 0 0 30px hsl(var(--glow-cyan) / 0.2);
+    transform: translateY(-4px);
+  }
+
+  /* Glow effects */
+  .glow-aura {
+    position: relative;
+  }
+
+  .glow-aura::before {
+    content: "";
+    position: absolute;
+    inset: -20%;
+    background: var(--gradient-glow);
+    filter: blur(60px);
+    z-index: -1;
+    animation: pulse-glow 4s ease-in-out infinite;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.1); }
+  }
+
+  /* Neon text */
+  .neon-text {
+    color: hsl(var(--accent));
+    text-shadow: var(--shadow-neon);
+  }
+
+  /* Horizontal scroll container */
+  .scroll-container {
+    @apply flex gap-6 overflow-x-auto pb-4;
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--primary) / 0.5) transparent;
+  }
+
+  .scroll-container::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .scroll-container::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scroll-container::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary) / 0.5);
+    border-radius: 3px;
+  }
+
+  /* Floating 3D effect */
+  .float-3d {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+  }
+
+  .float-3d-item {
+    transform: translateZ(20px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .float-3d-item:hover {
+    transform: translateZ(40px) rotateX(-5deg) rotateY(5deg);
+  }
+
+  /* Oversized headings */
+  .heading-hero {
+    @apply text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight;
+    background: linear-gradient(135deg, hsl(var(--foreground)) 0%, hsl(var(--accent)) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .heading-section {
+    @apply text-3xl md:text-5xl font-bold tracking-tight;
+  }
+
+  /* Netflix-style category label */
+  .category-label {
+    @apply text-xl md:text-2xl font-bold text-foreground/90 mb-4;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .category-label::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, hsl(var(--frost) / 0.3) 0%, transparent 100%);
+  }
+}
+
+@layer utilities {
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+
+  .animate-glow-pulse {
+    animation: glow-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes glow-pulse {
+    0%, 100% { filter: drop-shadow(0 0 20px hsl(var(--glow-cyan) / 0.6)); }
+    50% { filter: drop-shadow(0 0 40px hsl(var(--glow-cyan) / 0.9)); }
+  }
+}
